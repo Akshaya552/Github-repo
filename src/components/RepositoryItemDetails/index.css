@@ -1,0 +1,124 @@
+.repoitem-heading {
+  font-family: Roboto;
+  font-size: 25px;
+  margin: 0px;
+  color: #3b82f6;
+  font-weight: 500;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.main-couting-container {
+  display: flex;
+  flex-direction: column;
+}
+.box-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 85px;
+  font-family: Roboto;
+  border: solid 1px #cbd5e1;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+.box-heading {
+  margin: 0px;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 16px;
+}
+.box-count-text {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+  padding-top: 10px;
+}
+.contributors-heading {
+  margin: 0px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  padding-top: 10px;
+}
+.contributors-length {
+  color: #cbd5e1;
+  font-family: Roboto;
+  font-size: 13.5px;
+}
+.contrinutors-container {
+  display: flex;
+  align-items: center;
+  padding-left: 0px;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
+.contributor-image {
+  width: 35px;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+.extra-contributors {
+  font-family: Roboto;
+  background-color: #ffffff;
+  width: 35px;
+  height: 35px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.language-responsive-contianer {
+  width: 100%;
+  height: 300px;
+}
+
+@media screen and (min-width: 768px) {
+  .repoitem-heading {
+    font-size: 19px;
+  }
+  .main-couting-container {
+    flex-direction: row;
+  }
+  .box-container {
+    width: 120px;
+    height: 60px;
+    margin-bottom: 10x;
+    margin-right: 10px;
+  }
+  .box-heading {
+    font-size: 11px;
+  }
+  .box-count-text {
+    font-size: 13px;
+  }
+  .contributors-heading {
+    font-size: 18px;
+    padding-top: 0px;
+  }
+  .contributors-length {
+    font-size: 12px;
+  }
+  .contributor-image {
+    width: 35px;
+  }
+  .extra-contributors {
+    width: 35px;
+    height: 35px;
+    font-size: 11px;
+    color: #0f172a;
+  }
+
+  .language-responsive-contianer {
+    width: 55%;
+    height: 300px;
+  }
+}

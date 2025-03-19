@@ -1,0 +1,114 @@
+.repoitem-container {
+  background-color: #ffffff0f;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.repoitem-avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.repoitem-name {
+  font-family: Roboto;
+  color: #3b82f6;
+  font-size: 20px;
+  margin: 0px;
+}
+.repoitem-avatar {
+  width: 40px;
+  border-radius: 25px;
+}
+.description {
+  font-size: 14px;
+  font-family: Roboto;
+  color: #ffffff;
+  line-height: 22px;
+}
+.language-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 0px;
+  list-style-type: none;
+}
+
+.language-item {
+  margin-bottom: 5px;
+  margin-right: 10px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-family: Roboto;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.color0 {
+  background-color: #c026d329;
+  color: #e879f9;
+}
+.color1 {
+  background-color: #22c55e29;
+  color: #4ade80;
+}
+.color2 {
+  background-color: #0284c729;
+  color: #38bdf8;
+}
+.color3 {
+  background-color: #db277729;
+  color: #f472b6;
+}
+.color4 {
+  background-color: #f59e0b29;
+  color: #fbbf24;
+}
+.star-icon {
+  color: #fbbf24;
+  padding-right: 5px;
+  font-size: 21px;
+}
+.fork-icon {
+  color: #94a3b8;
+  padding-right: 5px;
+  font-size: 21px;
+}
+.star-count {
+  font-family: Roboto;
+  color: #ffffff;
+  font-size: 17.5px;
+  padding-right: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .repoitem-name {
+    font-size: 18px;
+  }
+  .repoitem-avatar {
+    width: 30px;
+  }
+  .description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .language-item {
+    margin-right: 5px;
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 9px;
+  }
+  .star-icon {
+    padding-right: 5px;
+    font-size: 16px;
+  }
+  .fork-icon {
+    padding-right: 5px;
+    font-size: 16px;
+  }
+  .star-count {
+    font-size: 15px;
+  }
+}

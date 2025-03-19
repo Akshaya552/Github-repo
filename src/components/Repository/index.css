@@ -1,0 +1,82 @@
+.repo-main-container {
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.failure-container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.repo-heading {
+  font-family: Roboto;
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0px;
+  padding-bottom: 5px;
+}
+.repo-unordered-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding-left: 0px;
+}
+.no-repsorities {
+  color: #f8fafc;
+  font-family: Roboto;
+  padding-top: 10px;
+  font-size: 19px;
+}
+.repo-empty-heading {
+  font-family: Roboto;
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0px;
+}
+.repo-empty-text {
+  font-family: Roboto;
+  color: #f8fafc;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+}
+.home-button {
+  background-color: #ffffff;
+  color: #414038;
+  font-family: roboto;
+  font-size: 12px;
+  border: none;
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+  .repo-main-container {
+    width: 70%;
+  }
+  .repo-heading {
+    font-size: 16px;
+  }
+  .no-repsorities {
+    font-size: 15px;
+  }
+  .repo-empty-heading {
+    font-size: 18px;
+  }
+  .repo-empty-text {
+    font-size: 11px;
+  }
+  .home-button {
+    font-size: 10px;
+    width: 80px;
+    padding: 8px;
+  }
+}
