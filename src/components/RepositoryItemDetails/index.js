@@ -44,7 +44,7 @@ class RepositoryItemDetails extends Component {
     const {reponame} = params
 
     const resposne = await fetch(
-      `https://apis2.ccbp.in/gpv/specific-repo/${username}/${reponame}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/specific-repo/${username}/${reponame}?api_key=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`,
     )
     if (resposne.ok === true) {
       const data = await resposne.json()
@@ -87,8 +87,6 @@ class RepositoryItemDetails extends Component {
       forksCount,
     } = repoitem
 
-    const firstCobtributors = contributors.slice(0, 5)
-
     return (
       <>
         <div className="analysis-avatar-container">
@@ -99,7 +97,7 @@ class RepositoryItemDetails extends Component {
             className="repoitem-avatar"
           />
         </div>
-        <div className="repoitem-container">
+        <div className="repodetailed-container">
           <h1 className="repoitem-heading">{name}</h1>
           <p className="description">{description}</p>
           <ul className="language-container">
@@ -121,18 +119,18 @@ class RepositoryItemDetails extends Component {
           </div>
           <div className="main-couting-container">
             <div className="box-container">
-              <p className="box-heading">Watchers Count</p>
+              <p className="box-heading">Watchers Counts</p>
               <p className="box-count-text">{watchersCount}</p>
             </div>
             <div className="box-container">
-              <p className="box-heading">Issues Count</p>
+              <p className="box-heading">Issues Counts</p>
               <p className="box-count-text">{openIssuesCount}</p>
             </div>
           </div>
           <h1 className="contributors-heading">Contributors</h1>
           <p className="contributors-length">{contributors.length} Members</p>
           <ul className="contrinutors-container">
-            {firstCobtributors.map(contributor => (
+            {contributors.map(contributor => (
               <li key={contributor.id}>
                 <img
                   src={contributor.avatarUrl}
@@ -141,7 +139,6 @@ class RepositoryItemDetails extends Component {
                 />
               </li>
             ))}
-            <p className="extra-contributors">+{contributors.length - 5}</p>
           </ul>
           <h1 className="contributors-heading">Languages</h1>
           <div className="language-responsive-contianer">
@@ -170,9 +167,9 @@ class RepositoryItemDetails extends Component {
                   align="right"
                   iconType="square"
                   wrapperStyle={{
-                    fontSize: '13px',
+                    fontSize: '15px',
                     fontFamily: 'Roboto',
-                    lineHeight: '25px',
+                    lineHeight: '32px',
                   }}
                 />
               </PieChart>

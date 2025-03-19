@@ -22,7 +22,7 @@ class Home extends Component {
     this.setState({homeStatus: apiStatusConstants.inProgress})
     const {username} = this.context
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
@@ -76,7 +76,7 @@ class Home extends Component {
       <h1 className="initial-heading">Github Profile Visualizer</h1>
       <img
         src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315292/Group_2_vx1w1q.png"
-        alt="github profile visualizer home page"
+        alt="gitHub profile visualizer home page"
         className="initial-image"
       />
     </>
@@ -132,7 +132,7 @@ class Home extends Component {
           <div className="blog-container">
             <p className="blue-heading">Blog</p>
             <p className="details-text">
-              <span className="company-icon">
+              <span className="icon">
                 <IoMdLink />
               </span>
               {blog}

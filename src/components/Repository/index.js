@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import './index.css'
 import Header from '../Header'
@@ -18,13 +18,14 @@ class Repository extends Component {
 
   componentDidMount() {
     this.fetchRepositoryList()
+    console.log('component')
   }
 
   fetchRepositoryList = async () => {
     const {username} = this.context
     this.setState({repoStatus: apiStatusConstants.inProgress})
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/repos/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/repos/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
@@ -60,7 +61,7 @@ class Repository extends Component {
           alt="no repositories"
           className="initial-image"
         />
-        <p className="no-repsorities">No Repositories Found!</p>
+        <h1 className="no-repsorities">No Repositories Found!</h1>
       </div>
     )
   }
@@ -69,28 +70,27 @@ class Repository extends Component {
     this.fetchRepositoryList()
   }
 
-  renderFailureView = () => {
-    const {username} = this.context
+  renderFailureView = () => (
+    <div className="failure-container">
+      <img
+        src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315292/Group_7522_oczjib.png"
+        alt="failure view"
+        className="initial-image"
+      />
+      <p className="failure-text">Something went wrong. Please try again</p>
+      <button
+        type="button"
+        className="failure-button"
+        onClick={this.onRepositoryTryagain}
+      >
+        Try again
+      </button>
+    </div>
+  )
 
-    return username === '' ? (
-      this.renderEmptyUsername()
-    ) : (
-      <div className="failure-container">
-        <img
-          src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315292/Group_7522_oczjib.png"
-          alt="failure view"
-          className="initial-image"
-        />
-        <p className="failure-text">Something went wrong. Please try again</p>
-        <button
-          type="button"
-          className="failure-button"
-          onClick={this.onRepositoryTryagain}
-        >
-          Try again
-        </button>
-      </div>
-    )
+  onRepositoryGohome = () => {
+    const {history} = this.props
+    history.replace('/')
   }
 
   renderEmptyUsername = () => (
@@ -98,18 +98,21 @@ class Repository extends Component {
       <img
         src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315291/Empty_Box_Illustration_1_krsttf.png"
         alt="empty repositories"
-        className="initial-image"
+        className="empty-image"
       />
       <h1 className="repo-empty-heading">No Data Found</h1>
       <p className="repo-empty-text">
         GitHub Username is empty, please provide a valid username for
         Repositories
       </p>
-      <Link to="/" className="link-item">
-        <button type="button" className="home-button">
-          Go to Home
-        </button>
-      </Link>
+
+      <button
+        type="button"
+        className="home-button"
+        onClick={this.onRepositoryGohome}
+      >
+        Go to Home
+      </button>
     </div>
   )
 
@@ -134,11 +137,14 @@ class Repository extends Component {
   }
 
   render() {
+    const {username} = this.context
     return (
       <>
         <Header />
         <div className="main-container">
-          <div className="repo-main-container">{this.renderRepo()}</div>
+          <div className="repo-main-container">
+            {username === '' ? this.renderEmptyUsername() : this.renderRepo()}
+          </div>
         </div>
       </>
     )

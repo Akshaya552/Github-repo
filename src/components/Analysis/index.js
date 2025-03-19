@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import {
   LineChart,
@@ -11,7 +11,7 @@ import {
   Pie,
   Legend,
   Cell,
-  ReferenceLine,
+  CartesianGrid,
   ResponsiveContainer,
 } from 'recharts'
 import './index.css'
@@ -43,10 +43,10 @@ class Analysis extends Component {
   state = {
     analysisLength: 0,
     user: [],
-    quarterCommitData: [],
-    langCommitData: [],
-    langRepoData: [],
-    repoCommitData: [],
+    quarterCommitCount: [],
+    langCommitCount: [],
+    langRepoCount: [],
+    repoCommitCount: [],
     analysisStatus: apiStatusConstants.initial,
   }
 
@@ -58,36 +58,36 @@ class Analysis extends Component {
     const {username} = this.context
     this.setState({analysisStatus: apiStatusConstants.inProgress})
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/profile-summary/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/profile-summary/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
       const user = {login: data.user.login, avatarUrl: data.user.avatarUrl}
-      const quarterCommitData = Object.keys(data.quarterCommitCount).map(
+      const quarterCommitCount = Object.keys(data.quarterCommitCount).map(
         key => ({
           name: key,
           value: data.quarterCommitCount[key],
         }),
       )
-      const langRepoData = Object.keys(data.langRepoCount).map(key => ({
+      const langRepoCount = Object.keys(data.langRepoCount).map(key => ({
         name: key,
         value: data.langRepoCount[key],
       }))
-      const langCommitData = Object.keys(data.langCommitCount).map(key => ({
+      const langCommitCount = Object.keys(data.langCommitCount).map(key => ({
         name: key,
         value: data.langCommitCount[key],
       }))
-      const repoCommitData = Object.keys(data.repoCommitCount).map(key => ({
+      const repoCommitCount = Object.keys(data.repoCommitCount).map(key => ({
         name: key,
         value: data.repoCommitCount[key],
       }))
 
       this.setState({
         user,
-        quarterCommitData,
-        langCommitData,
-        langRepoData,
-        repoCommitData,
+        quarterCommitCount,
+        langCommitCount,
+        langRepoCount,
+        repoCommitCount,
         analysisLength: Object.keys(data).length,
         analysisStatus: apiStatusConstants.success,
       })
@@ -99,10 +99,10 @@ class Analysis extends Component {
   renderanalysisSuccessView = () => {
     const {
       user,
-      quarterCommitData,
-      langCommitData,
-      langRepoData,
-      repoCommitData,
+      quarterCommitCount,
+      langCommitCount,
+      langRepoCount,
+      repoCommitCount,
       analysisLength,
     } = this.state
 
@@ -118,7 +118,7 @@ class Analysis extends Component {
     ) : (
       <>
         <div className="analysis-avatar-container">
-          <p className="avatar-name">{user.login}</p>
+          <h1 className="avatar-name">{user.login}</h1>
           <img
             src={user.avatarUrl}
             alt={user.login}
@@ -127,9 +127,9 @@ class Analysis extends Component {
         </div>
         <h1 className="repo-heading">Analysis</h1>
         <div className="analysis-container">
-          <ResponsiveContainer width="100%" height={270}>
+          <ResponsiveContainer width="100%" height="90%">
             <LineChart
-              data={quarterCommitData}
+              data={quarterCommitCount}
               margin={{top: 5, right: 20, bottom: 5, left: 0}}
             >
               <Line
@@ -138,19 +138,19 @@ class Analysis extends Component {
                 fill="#3B82F6"
                 strokeWidth={2}
               />
-              {quarterCommitData.map(entry => (
-                <ReferenceLine
-                  key={entry.value}
-                  x={entry.name}
-                  stroke="#3B82F6"
-                  strokeDasharray="2 2"
-                  strokeWidth={0.2}
-                />
-              ))}
+
+              <CartesianGrid
+                horizontal={false}
+                stroke="#3B82F6"
+                strokeDasharray="2 2"
+                strokeWidth={0.4}
+              />
+
               <XAxis
                 dataKey="name"
                 stroke="#3B82F6"
                 tick={{fontSize: 13}}
+                domain={['auto', 'auto']}
                 strokeWidth={1.5}
               />
               <YAxis
@@ -170,7 +170,7 @@ class Analysis extends Component {
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={langRepoData}
+                  data={langRepoCount}
                   cx="40%"
                   cy="50%"
                   innerRadius="50%"
@@ -178,11 +178,8 @@ class Analysis extends Component {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {langRepoData.map((entry, index) => (
-                    <Cell
-                      key={entry.name + entry.value}
-                      fill={piecolor[index % 11]}
-                    />
+                  {langRepoCount.map((entry, index) => (
+                    <Cell key={entry.name} fill={piecolor[index % 11]} />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -192,7 +189,7 @@ class Analysis extends Component {
                   align="right"
                   iconType="square"
                   wrapperStyle={{
-                    fontSize: '13px',
+                    fontSize: '15px',
                     fontFamily: 'Roboto',
                     lineHeight: '25px',
                   }}
@@ -205,7 +202,7 @@ class Analysis extends Component {
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={langCommitData}
+                  data={langCommitCount}
                   cx="40%"
                   cy="50%"
                   innerRadius="50%"
@@ -213,11 +210,8 @@ class Analysis extends Component {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {langCommitData.map((entry, index) => (
-                    <Cell
-                      key={entry.name + entry.value}
-                      fill={piecolor[index % 11]}
-                    />
+                  {langCommitCount.map((entry, index) => (
+                    <Cell key={entry.name} fill={piecolor[index % 11]} />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -227,7 +221,7 @@ class Analysis extends Component {
                   align="right"
                   iconType="square"
                   wrapperStyle={{
-                    fontSize: '13px',
+                    fontSize: '15px',
                     fontFamily: 'Roboto',
                     lineHeight: '25px',
                   }}
@@ -241,7 +235,7 @@ class Analysis extends Component {
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
-                data={repoCommitData}
+                data={repoCommitCount}
                 cx="50%"
                 cy="50%"
                 innerRadius="50%"
@@ -249,18 +243,15 @@ class Analysis extends Component {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {repoCommitData.map((entry, index) => (
-                  <Cell
-                    key={entry.name + entry.value}
-                    fill={piecolor[index % 11]}
-                  />
+                {repoCommitCount.map((entry, index) => (
+                  <Cell key={entry.name} fill={piecolor[index % 11]} />
                 ))}
               </Pie>
               <Tooltip />
               <Legend
                 iconType="square"
                 wrapperStyle={{
-                  fontSize: '13px',
+                  fontSize: '16px',
                   fontFamily: 'Roboto',
                   lineHeight: '25px',
                 }}
@@ -276,28 +267,27 @@ class Analysis extends Component {
     this.fetchAnalysisList()
   }
 
-  renderAnalysisFailureView = () => {
-    const {username} = this.context
+  renderAnalysisFailureView = () => (
+    <div className="failure-container">
+      <img
+        src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315292/Group_7522_oczjib.png"
+        alt="failure view"
+        className="initial-image"
+      />
+      <p className="failure-text">Something went wrong. Please try again</p>
+      <button
+        type="button"
+        className="failure-button"
+        onClick={this.onAnalysiTryagain}
+      >
+        Try again
+      </button>
+    </div>
+  )
 
-    return username === '' ? (
-      this.renderAnalysisEmptyUsername()
-    ) : (
-      <div className="failure-container">
-        <img
-          src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315292/Group_7522_oczjib.png"
-          alt="failure view"
-          className="initial-image"
-        />
-        <p className="failure-text">Something went wrong. Please try again</p>
-        <button
-          type="button"
-          className="failure-button"
-          onClick={this.onAnalysiTryagain}
-        >
-          Try again
-        </button>
-      </div>
-    )
+  onAnalysisGohome = () => {
+    const {history} = this.props
+    history.replace('/')
   }
 
   renderAnalysisEmptyUsername = () => (
@@ -305,17 +295,20 @@ class Analysis extends Component {
       <img
         src="https://res.cloudinary.com/dvhtvbdud/image/upload/v1742315291/Empty_Box_Illustration_1_krsttf.png"
         alt="empty analysis"
-        className="initial-image"
+        className="empty-image"
       />
       <h1 className="repo-empty-heading">No Data Found</h1>
       <p className="repo-empty-text">
-        GitHub Username is empty, please provide a valid username for analysis
+        GitHub username is empty, please provide a valid username for Analysis
       </p>
-      <Link to="/" className="link-item">
-        <button type="button" className="home-button">
-          Go to Home
-        </button>
-      </Link>
+
+      <button
+        type="button"
+        className="home-button"
+        onClick={this.onAnalysisGohome}
+      >
+        Go to Home
+      </button>
     </div>
   )
 
@@ -340,11 +333,16 @@ class Analysis extends Component {
   }
 
   render() {
+    const {username} = this.context
     return (
       <>
         <Header />
         <div className="main-container">
-          <div className="repo-main-container">{this.renderAnalysis()}</div>
+          <div className="repo-main-container">
+            {username === ''
+              ? this.renderAnalysisEmptyUsername()
+              : this.renderAnalysis()}
+          </div>
         </div>
       </>
     )

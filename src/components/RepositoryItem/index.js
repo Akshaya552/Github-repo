@@ -15,7 +15,7 @@ const RepositoryItem = props => {
     // extra,
   } = repository
   return (
-    <li className="repoitem-container">
+    <li className="repoitem-container" key={name}>
       <Link to={`/repositories/${name}`} className="link-item">
         <div className="repoitem-avatar-container">
           <p className="repoitem-name">{name}</p>

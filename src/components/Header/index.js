@@ -24,40 +24,39 @@ class Header extends Component {
             </h1>
           </Link>
           <ul className="large-unordered-list">
-            <Link to="/" className="link-item">
-              <li
-                className={
-                  activeTab === '/'
-                    ? 'nav-list-item active-color'
-                    : 'nav-list-item'
-                }
+            <li className="nav-list-item">
+              <Link
+                to="/"
+                className={activeTab === '/' ? ' active-color' : ' normal'}
               >
                 Home
-              </li>
-            </Link>
-            <Link to="/repositories" className="link-item">
-              <li
+              </Link>
+            </li>
+
+            <li className="nav-list-item">
+              <Link
+                to="/repositories"
                 className={
                   activeTab === '/repositories' ||
                   activeTab.startsWith('/repositories/')
-                    ? 'nav-list-item active-color'
-                    : 'nav-list-item'
+                    ? ' active-color'
+                    : 'normal'
                 }
               >
                 Repositories
-              </li>
-            </Link>
-            <Link to="/analysis" className="link-item">
-              <li
+              </Link>
+            </li>
+
+            <li className="nav-list-item">
+              <Link
+                to="/analysis"
                 className={
-                  activeTab === '/analysis'
-                    ? 'nav-list-item active-color'
-                    : 'nav-list-item'
+                  activeTab === '/analysis' ? 'active-color' : 'normal'
                 }
               >
                 Analysis
-              </li>
-            </Link>
+              </Link>
+            </li>
           </ul>
           <button
             onClick={this.onClickToggleButton}
@@ -70,40 +69,39 @@ class Header extends Component {
         </div>
         {!ishidden && (
           <ul className="sm-unordered-list">
-            <Link to="/" className="link-item">
-              <li
-                className={
-                  activeTab === '/'
-                    ? 'nav-list-item active-color'
-                    : 'nav-list-item'
-                }
+            <li className="nav-list-item">
+              <Link
+                to="/"
+                className={activeTab === '/' ? 'active-color' : 'normal'}
               >
                 Home
-              </li>
-            </Link>
-            <Link to="/repositories" className="link-item">
-              <li
+              </Link>
+            </li>
+
+            <li className="nav-list-item">
+              <Link
+                to="/repositories"
                 className={
                   activeTab === '/repositories' ||
                   activeTab.startsWith('/repositories/')
-                    ? 'nav-list-item active-color'
-                    : 'nav-list-item'
+                    ? 'active-color'
+                    : 'normal'
                 }
               >
                 Repositories
-              </li>
-            </Link>
-            <Link to="/analysis" className="link-item">
-              <li
+              </Link>
+            </li>
+
+            <li className="nav-list-item">
+              <Link
+                to="/analysis"
                 className={
-                  activeTab === '/analysis'
-                    ? 'nav-list-item active-color'
-                    : 'nav-list-item'
+                  activeTab === '/analysis' ? 'active-color' : 'normal'
                 }
               >
                 Analysis
-              </li>
-            </Link>
+              </Link>
+            </li>
           </ul>
         )}
       </div>

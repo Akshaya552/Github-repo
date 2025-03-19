@@ -14,10 +14,13 @@
   align-items: center;
   justify-content: center;
 }
+.empty-image {
+  width: 70%;
+}
 .repo-heading {
   font-family: Roboto;
   color: #f8fafc;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   margin: 0px;
   padding-bottom: 5px;
@@ -29,22 +32,23 @@
   padding-left: 0px;
 }
 .no-repsorities {
+  font-weight: 400;
   color: #f8fafc;
   font-family: Roboto;
   padding-top: 10px;
-  font-size: 19px;
+  font-size: 22px;
 }
 .repo-empty-heading {
   font-family: Roboto;
   color: #f8fafc;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 500;
   margin: 0px;
 }
 .repo-empty-text {
   font-family: Roboto;
   color: #f8fafc;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 22px;
   text-align: center;
 }
@@ -52,31 +56,34 @@
   background-color: #ffffff;
   color: #414038;
   font-family: roboto;
-  font-size: 12px;
+  font-size: 14px;
   border: none;
   width: 100px;
   padding: 10px;
   cursor: pointer;
 }
 @media screen and (min-width: 768px) {
+  .empty-image {
+    width: 32%;
+  }
   .repo-main-container {
     width: 70%;
   }
   .repo-heading {
-    font-size: 16px;
+    font-size: 24px;
   }
   .no-repsorities {
-    font-size: 15px;
+    font-size: 25px;
   }
   .repo-empty-heading {
-    font-size: 18px;
+    font-size: 27px;
+    margin-top: 10px;
   }
   .repo-empty-text {
-    font-size: 11px;
+    font-size: 16px;
   }
   .home-button {
-    font-size: 10px;
-    width: 80px;
-    padding: 8px;
+    font-size: 15px;
+    width: 110px;
   }
 }

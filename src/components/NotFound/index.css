@@ -11,21 +11,21 @@
   font-family: Roboto;
   color: #f8fafc;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 25px;
 }
 .notfound-text {
   font-family: roboto;
   text-align: center;
   color: #cbd5e1;
-  font-size: 13px;
+  font-size: 16px;
   margin: 0px;
-  line-height: 22px;
+  line-height: 23px;
 }
 .gohome-button {
   background-color: #3b82f6;
   color: #ffffff;
   font-family: 'Roboto';
-  padding: 10px;
+  padding: 11px;
   width: 100px;
   font-size: 13px;
   margin-top: 15px;
@@ -36,15 +36,15 @@
 
 @media screen and (min-width: 768px) {
   .notfound-heading {
-    font-size: 18px;
+    font-size: 25px;
   }
   .notfound-text {
-    font-size: 11px;
+    font-size: 17px;
   }
   .gohome-button {
-    font-size: 9px;
-    padding: 8px;
-    width: 75px;
-    border-radius: 5px;
+    font-size: 14px;
+    width: 110px;
+    padding: 12px;
+    margin-top: 25px;
   }
 }

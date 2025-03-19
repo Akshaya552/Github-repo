@@ -12,15 +12,15 @@
 .repoitem-name {
   font-family: Roboto;
   color: #3b82f6;
-  font-size: 20px;
+  font-size: 24px;
   margin: 0px;
 }
 .repoitem-avatar {
-  width: 40px;
+  width: 45px;
   border-radius: 25px;
 }
 .description {
-  font-size: 14px;
+  font-size: 16px;
   font-family: Roboto;
   color: #ffffff;
   line-height: 22px;
@@ -32,7 +32,6 @@
   padding-left: 0px;
   list-style-type: none;
 }
-
 .language-item {
   margin-bottom: 5px;
   margin-right: 10px;
@@ -42,7 +41,7 @@
   padding-bottom: 7px;
   font-family: Roboto;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .color0 {
   background-color: #c026d329;
@@ -67,12 +66,12 @@
 .star-icon {
   color: #fbbf24;
   padding-right: 5px;
-  font-size: 21px;
+  font-size: 22px;
 }
 .fork-icon {
   color: #94a3b8;
   padding-right: 5px;
-  font-size: 21px;
+  font-size: 22px;
 }
 .star-count {
   font-family: Roboto;
@@ -82,33 +81,37 @@
 }
 
 @media screen and (min-width: 768px) {
+  .repoitem-container {
+    padding: 20px;
+  }
   .repoitem-name {
-    font-size: 18px;
+    font-size: 22px;
   }
   .repoitem-avatar {
-    width: 30px;
+    width: 50px;
   }
   .description {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 20px;
   }
   .language-item {
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     padding-left: 13px;
     padding-right: 13px;
     padding-top: 6px;
     padding-bottom: 6px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .star-icon {
     padding-right: 5px;
-    font-size: 16px;
+    font-size: 22px;
   }
   .fork-icon {
     padding-right: 5px;
-    font-size: 16px;
+    font-size: 22px;
   }
   .star-count {
-    font-size: 15px;
+    font-size: 18px;
   }
 }
