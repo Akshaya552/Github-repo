@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 import './index.css'
 import Header from '../Header'
+import GithubContext from '../../context/GithubContext'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -53,9 +54,9 @@ class Analysis extends Component {
 
   fetchAnalysisList = async () => {
     this.setState({analysisStatus: apiStatusConstants.inProgress})
-    const {username} = this.props
+    const {username} = this.context
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/profile-summary/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/profile-summary/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
@@ -319,7 +320,7 @@ class Analysis extends Component {
   }
 
   render() {
-    const {username} = this.props
+    const {username} = this.context
     return (
       <>
         <Header />
@@ -334,5 +335,7 @@ class Analysis extends Component {
     )
   }
 }
+
+Analysis.contextType = GithubContext
 
 export default Analysis
