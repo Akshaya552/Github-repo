@@ -2,14 +2,7 @@ import {Component} from 'react'
 import {FaStar} from 'react-icons/fa'
 import Loader from 'react-loader-spinner'
 import {GoGitBranch} from 'react-icons/go'
-import {
-  Tooltip,
-  PieChart,
-  Pie,
-  Legend,
-  Cell,
-  ResponsiveContainer,
-} from 'recharts'
+import {Tooltip, PieChart, Pie, Legend, Cell} from 'recharts'
 import './index.css'
 import Header from '../Header'
 import GithubContext from '../../context/GithubContext'
@@ -44,7 +37,7 @@ class RepositoryItemDetails extends Component {
     const {reponame} = params
 
     const resposne = await fetch(
-      `https://apis2.ccbp.in/gpv/specific-repo/${username}/${reponame}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/specific-repo/${username}/${reponame}?api_key=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`,
     )
     if (resposne.ok === true) {
       const data = await resposne.json()
@@ -142,38 +135,36 @@ class RepositoryItemDetails extends Component {
           </ul>
           <h1 className="contributors-heading">Languages</h1>
           <div className="language-responsive-contianer">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={languages}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius="50%"
-                  outerRadius="80%"
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {languages.map((entry, index) => (
-                    <Cell
-                      key={entry.name + entry.value}
-                      fill={colorPie[index % 5]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend
-                  layout="vertical"
-                  verticalAlign="middle"
-                  align="right"
-                  iconType="square"
-                  wrapperStyle={{
-                    fontSize: '15px',
-                    fontFamily: 'Roboto',
-                    lineHeight: '32px',
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <PieChart width={400} height={400}>
+              <Pie
+                data={languages}
+                cx="50%"
+                cy="50%"
+                innerRadius="50%"
+                outerRadius="80%"
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {languages.map((entry, index) => (
+                  <Cell
+                    key={entry.name + entry.value}
+                    fill={colorPie[index % 5]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend
+                layout="vertical"
+                verticalAlign="middle"
+                align="right"
+                iconType="square"
+                wrapperStyle={{
+                  fontSize: '15px',
+                  fontFamily: 'Roboto',
+                  lineHeight: '32px',
+                }}
+              />
+            </PieChart>
           </div>
         </div>
       </>

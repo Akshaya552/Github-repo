@@ -1,10 +1,10 @@
 import {Component} from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import Home from './components/Home'
-import Repository from './components/Repository'
+import HomeConsumer from './components/HomeConsumer'
+import RepositoryConsumer from './components/RepositoryConsumer'
 import RepositoryItemDetails from './components/RepositoryItemDetails'
 import NotFound from './components/NotFound'
-import Analysis from './components/Analysis'
+import AnalysisConsumer from './components/AnalysisConsumer'
 import Githubcontext from './context/GithubContext'
 import './App.css'
 
@@ -23,14 +23,14 @@ class App extends Component {
           value={{username, changeUsername: this.changeUsername}}
         >
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/repositories" component={Repository} />
+            <Route exact path="/" component={HomeConsumer} />
+            <Route exact path="/repositories" component={RepositoryConsumer} />
             <Route
               exact
               path="/repositories/:reponame"
               component={RepositoryItemDetails}
             />
-            <Route exact path="/analysis" component={Analysis} />
+            <Route exact path="/analysis" component={AnalysisConsumer} />
             <Route exact path="/notfound" component={NotFound} />
             <Redirect to="/notfound" />
           </Switch>

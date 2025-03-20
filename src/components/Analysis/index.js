@@ -1,5 +1,4 @@
 import {Component} from 'react'
-// import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import {
   LineChart,
@@ -12,11 +11,9 @@ import {
   Legend,
   Cell,
   CartesianGrid,
-  ResponsiveContainer,
 } from 'recharts'
 import './index.css'
 import Header from '../Header'
-import GithubContext from '../../context/GithubContext'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -55,18 +52,18 @@ class Analysis extends Component {
   }
 
   fetchAnalysisList = async () => {
-    const {username} = this.context
     this.setState({analysisStatus: apiStatusConstants.inProgress})
+    const {username} = this.props
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/profile-summary/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/profile-summary/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
       const user = {login: data.user.login, avatarUrl: data.user.avatarUrl}
       const quarterCommitCount = Object.keys(data.quarterCommitCount).map(
         key => ({
-          name: key,
-          value: data.quarterCommitCount[key],
+          quarter: key,
+          commits: data.quarterCommitCount[key],
         }),
       )
       const langRepoCount = Object.keys(data.langRepoCount).map(key => ({
@@ -127,137 +124,126 @@ class Analysis extends Component {
         </div>
         <h1 className="repo-heading">Analysis</h1>
         <div className="analysis-container">
-          <ResponsiveContainer width="100%" height="90%">
-            <LineChart
-              data={quarterCommitCount}
-              margin={{top: 5, right: 20, bottom: 5, left: 0}}
-            >
-              <Line
-                type="monotone"
-                dataKey="value"
-                fill="#3B82F6"
-                strokeWidth={2}
-              />
-
-              <CartesianGrid
-                horizontal={false}
-                stroke="#3B82F6"
-                strokeDasharray="2 2"
-                strokeWidth={0.4}
-              />
-
-              <XAxis
-                dataKey="name"
-                stroke="#3B82F6"
-                tick={{fontSize: 13}}
-                domain={['auto', 'auto']}
-                strokeWidth={1.5}
-              />
-              <YAxis
-                stroke="#3B82F6"
-                tick={{fontSize: 13}}
-                domain={['auto', 'auto']}
-                strokeWidth={1.5}
-              />
-              <Tooltip />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChart
+            width={1000}
+            height={300}
+            data={quarterCommitCount}
+            margin={{top: 5, right: 20, bottom: 5, left: 0}}
+          >
+            <Line
+              type="monotone"
+              dataKey="commits"
+              fill="#3B82F6"
+              strokeWidth={2}
+              name="Commits"
+            />
+            <CartesianGrid
+              horizontal={false}
+              stroke="#3B82F6"
+              strokeDasharray="2 2"
+              strokeWidth={0.4}
+            />
+            <XAxis
+              dataKey="quarter"
+              stroke="#3B82F6"
+              tick={{fontSize: 13}}
+              strokeWidth={1.5}
+            />
+            <YAxis stroke="#3B82F6" tick={{fontSize: 13}} strokeWidth={1.5} />
+            <Tooltip />
+          </LineChart>
           <p className="commmit-text">Commits Per Quarter</p>
         </div>
         <div className="piecharts-container">
           <div className="individual-piecontainer">
             <h1 className="repo-heading">Language Per Repos</h1>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={langRepoCount}
-                  cx="40%"
-                  cy="50%"
-                  innerRadius="50%"
-                  outerRadius="80%"
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {langRepoCount.map((entry, index) => (
-                    <Cell key={entry.name} fill={piecolor[index % 11]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend
-                  layout="vertical"
-                  verticalAlign="middle"
-                  align="right"
-                  iconType="square"
-                  wrapperStyle={{
-                    fontSize: '15px',
-                    fontFamily: 'Roboto',
-                    lineHeight: '25px',
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="individual-piecontainer">
-            <h1 className="repo-heading">Language Per Commits</h1>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={langCommitCount}
-                  cx="40%"
-                  cy="50%"
-                  innerRadius="50%"
-                  outerRadius="80%"
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {langCommitCount.map((entry, index) => (
-                    <Cell key={entry.name} fill={piecolor[index % 11]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend
-                  layout="vertical"
-                  verticalAlign="middle"
-                  align="right"
-                  iconType="square"
-                  wrapperStyle={{
-                    fontSize: '15px',
-                    fontFamily: 'Roboto',
-                    lineHeight: '25px',
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        <h1 className="repo-heading">Commits Per Repo (Top 10)</h1>
-        <div className="repocommit-container">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
+
+            <PieChart width={1000} height={300}>
               <Pie
-                data={repoCommitCount}
-                cx="50%"
+                data={langRepoCount}
+                cx="40%"
                 cy="50%"
                 innerRadius="50%"
                 outerRadius="80%"
                 fill="#8884d8"
                 dataKey="value"
               >
-                {repoCommitCount.map((entry, index) => (
+                {langRepoCount.map((entry, index) => (
                   <Cell key={entry.name} fill={piecolor[index % 11]} />
                 ))}
               </Pie>
               <Tooltip />
               <Legend
+                layout="vertical"
+                verticalAlign="middle"
+                align="right"
                 iconType="square"
                 wrapperStyle={{
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontFamily: 'Roboto',
                   lineHeight: '25px',
                 }}
               />
             </PieChart>
-          </ResponsiveContainer>
+          </div>
+          <div className="individual-piecontainer">
+            <h1 className="repo-heading">Language Per Commits</h1>
+
+            <PieChart width={1000} height={300}>
+              <Pie
+                data={langCommitCount}
+                cx="40%"
+                cy="50%"
+                innerRadius="50%"
+                outerRadius="80%"
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {langCommitCount.map((entry, index) => (
+                  <Cell key={entry.name} fill={piecolor[index % 11]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend
+                layout="vertical"
+                verticalAlign="middle"
+                align="right"
+                iconType="square"
+                wrapperStyle={{
+                  fontSize: '15px',
+                  fontFamily: 'Roboto',
+                  lineHeight: '25px',
+                }}
+              />
+            </PieChart>
+          </div>
+        </div>
+        <h1 className="repo-heading">Commits Per Repo (Top 10)</h1>
+        <div className="repocommit-container">
+          <PieChart>
+            <Pie
+              data={repoCommitCount}
+              cx="50%"
+              cy="50%"
+              innerRadius="50%"
+              outerRadius="80%"
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {repoCommitCount.map((entry, index) => (
+                <Cell key={entry.name} fill={piecolor[index % 11]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend
+              iconType="square"
+              wrapperStyle={{
+                fontSize: '16px',
+                fontFamily: 'Roboto',
+                lineHeight: '25px',
+              }}
+            />
+          </PieChart>
         </div>
       </>
     )
@@ -333,7 +319,7 @@ class Analysis extends Component {
   }
 
   render() {
-    const {username} = this.context
+    const {username} = this.props
     return (
       <>
         <Header />
@@ -348,7 +334,5 @@ class Analysis extends Component {
     )
   }
 }
-
-Analysis.contextType = GithubContext
 
 export default Analysis

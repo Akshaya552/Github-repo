@@ -5,7 +5,6 @@ import {IoMdLink} from 'react-icons/io'
 import {IoLocationOutline} from 'react-icons/io5'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
-import GithubContext from '../../context/GithubContext'
 import './index.css'
 
 const apiStatusConstants = {
@@ -20,9 +19,9 @@ class Home extends Component {
 
   fetchUserDetails = async () => {
     this.setState({homeStatus: apiStatusConstants.inProgress})
-    const {username} = this.context
+    const {username} = this.props
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
@@ -159,7 +158,7 @@ class Home extends Component {
   )
 
   onChangeUsername = event => {
-    const {changeUsername} = this.context
+    const {changeUsername} = this.props
     changeUsername(event.target.value)
   }
 
@@ -190,7 +189,7 @@ class Home extends Component {
   }
 
   render() {
-    const {username} = this.context
+    const {username} = this.props
     const {isError} = this.state
     return (
       <>
@@ -228,7 +227,5 @@ class Home extends Component {
     )
   }
 }
-
-Home.contextType = GithubContext
 
 export default Home

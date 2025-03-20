@@ -3,7 +3,6 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import './index.css'
 import Header from '../Header'
-import GithubContext from '../../context/GithubContext'
 import RepositoryItem from '../RepositoryItem'
 
 const apiStatusConstants = {
@@ -14,7 +13,11 @@ const apiStatusConstants = {
 }
 
 class Repository extends Component {
-  state = {repositoryList: [], repoStatus: apiStatusConstants.initial}
+  state = {
+    repositoryList: [],
+    repoStatus: apiStatusConstants.initial,
+    owner: [],
+  }
 
   componentDidMount() {
     this.fetchRepositoryList()
@@ -22,31 +25,51 @@ class Repository extends Component {
   }
 
   fetchRepositoryList = async () => {
-    const {username} = this.context
+    const {username} = this.props
     this.setState({repoStatus: apiStatusConstants.inProgress})
     const response = await fetch(
-      `https://apis2.ccbp.in/gpv/repos/${username}?api_key=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`,
+      `https://apis2.ccbp.in/gpv/repos/${username}?api_key=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`,
     )
     if (response.ok === true) {
       const data = await response.json()
       const repositoryList = data.map(each => ({
         name: each.name,
-        owner: {login: each.owner.login, avatarUrl: each.owner.avatar_url},
         description: each.description,
+        owner: {
+          login: each.owner.login,
+          avatarUrl: each.owner.avatar_url,
+        },
         stargazersCount: each.stargazers_count,
         forksCount: each.forks_count,
         languages: each.languages,
       }))
-      this.setState({repositoryList, repoStatus: apiStatusConstants.success})
+      const owner = {
+        login: data[0].owner.login,
+        avatarUrl: data[0].owner.avatar_url,
+      }
+      this.setState({
+        repositoryList,
+        repoStatus: apiStatusConstants.success,
+        owner,
+      })
     } else {
       this.setState({repoStatus: apiStatusConstants.failure})
     }
   }
 
   renderRepoSuccessview = () => {
-    const {repositoryList} = this.state
+    const {repositoryList, owner} = this.state
+
     return repositoryList.length > 0 ? (
       <>
+        <div className="analysis-avatar-container">
+          <h1 className="avatar-name">{owner.login}</h1>
+          <img
+            src={owner.avatarUrl}
+            alt={owner.login}
+            className="repoitem-avatar"
+          />
+        </div>
         <h1 className="repo-heading">Repositories</h1>
         <ul className="repo-unordered-list">
           {repositoryList.map(repository => (
@@ -137,7 +160,7 @@ class Repository extends Component {
   }
 
   render() {
-    const {username} = this.context
+    const {username} = this.props
     return (
       <>
         <Header />
@@ -150,7 +173,5 @@ class Repository extends Component {
     )
   }
 }
-
-Repository.contextType = GithubContext
 
 export default Repository
